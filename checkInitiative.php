@@ -29,5 +29,5 @@ writeInitiatives($id, "[" . implode(",", $initiatives) . "]");
 $settings = readSettings($id);
 $initiatives = getInitiatives($settings);
 
-echo "{\"initatives\": ".$settings["initiatives"].", \"mapping\": ".$settings["mapping"]."}";
+echo "{\"initiatives\": ".$settings["initiatives"].", \"mapping\": ".$settings["mapping"]."}";
 ?>
