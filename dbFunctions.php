@@ -40,7 +40,7 @@ function updatePageViews($sessionId, $remoteIp) {
 
 function readSettings($id) {
 	$conn = dbInit();
-	$sql = "SELECT id, initiatives, mapping FROM settings WHERE id = "
+	$sql = "SELECT id, initiatives, mapping, user_name, user_role FROM settings WHERE id = "
 		. mysqli_real_escape_string($conn, $id);
 	$result = $conn->query($sql);
 	$conn->close();
