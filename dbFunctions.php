@@ -63,9 +63,9 @@ function writeInitiatives($id, $initiatives) {
 function audit($url, $remote_ip) {
 	$conn = dbInit();
 
-	$sql = "INSERT INTO audit (url, remote_ip) Values ("
+	$sql = "INSERT INTO audit (url, remote_ip) Values ('"
 		. mysqli_real_escape_string($conn, $url)
-		. ", "
+		. "', "
 		. mysqli_real_escape_string($conn, $remote_ip)
 		. ")";
 	$result = $conn->query($sql);
