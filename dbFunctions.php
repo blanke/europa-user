@@ -60,14 +60,14 @@ function readSettings($id) {
 function writeSettingsField($id, $field, $value) {
 	$conn = dbInit();
 	$sql = "UPDATE settings SET ".$field." = '"
-		. mysqli_real_escape_string($conn, value)
+		. mysqli_real_escape_string($conn, $value)
 		. "' WHERE id = "
 		. mysqli_real_escape_string($conn, $id);
 	$result = $conn->query($sql);
 	$conn->close();
 	if ($result === TRUE) return TRUE;
 	else {
-		error_log("ERROR writeSettingsField(".$id.", ".field.", ".value."): ".$sql);
+		error_log("ERROR writeSettingsField(".$id.", ".$field.", ".$value."): ".$sql);
 		die("ERROR 0x0903");
 	};
 }
