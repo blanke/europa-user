@@ -59,6 +59,18 @@ function writeInitiatives($id, $initiatives) {
 	if ($result === TRUE) return TRUE;
 	else die("ERROR 0x0903");
 }
+
+function audit($url, $remote_ip) {
+	$conn = dbInit();
+
+	$sql = "INSERT INTO audit (url, remote_ip) Values ("
+		. mysqli_real_escape_string($conn, $url)
+		. ", "
+		. mysqli_real_escape_string($conn, $remote_ip)
+		. ")";
+	$result = $conn->query($sql);
+	$conn->close();
+	if ($result === TRUE) return TRUE;
+	else die("ERROR 0x0906: ".$sql);
+}
 ?>
-
-
