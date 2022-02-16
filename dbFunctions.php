@@ -6,7 +6,10 @@ function dbInit() {
 		ini_get("mysqli.default_user"),
 		ini_get("mysqli.default_pw"),
 		"europa-user");
-	if ($conn->connect_error) die("ERROR 0x0901");
+	if ($conn->connect_error) {
+		error_log("ERROR 0x0901: ".$conn->connect_error);
+		die("ERROR 0x0901");
+	}
 	return $conn;
 }
 
@@ -35,7 +38,10 @@ function updatePageViews($sessionId, $remoteIp) {
 	$result = $conn->query($sql);
 	$conn->close();
 	if ($result === TRUE) return TRUE;
-	else die("ERROR 0x0904: ".$sql);
+	else {
+		error_log("ERROR updatePageViews(".$sessionId.", ".$remoteIp."): ".$sql);
+		die("ERROR 0x0904");
+	};
 }
 
 function readSettings($id) {
@@ -45,7 +51,10 @@ function readSettings($id) {
 	$result = $conn->query($sql);
 	$conn->close();
 	if ($result->num_rows === 1) return $result->fetch_assoc();
-	else die("ERROR 0x0902");
+	else {
+		error_log("ERROR readSettings(".$id."): ".$sql);
+		die("ERROR 0x0902");
+	};
 }
 
 function writeInitiatives($id, $initiatives) {
@@ -57,20 +66,28 @@ function writeInitiatives($id, $initiatives) {
 	$result = $conn->query($sql);
 	$conn->close();
 	if ($result === TRUE) return TRUE;
-	else die("ERROR 0x0903");
+	else {
+		error_log("ERROR writeInitiatives(".$id.", ".$initiatives."): ".$sql);
+		die("ERROR 0x0903");
+	};
 }
 
-function audit($url, $remote_ip) {
+function audit($url, $action, $remote_ip) {
 	$conn = dbInit();
 
-	$sql = "INSERT INTO audit (url, remote_ip) Values ('"
+	$sql = "INSERT INTO audit (url, action, remote_ip) Values ('"
 		. mysqli_real_escape_string($conn, $url)
+		. "', "
+		. mysqli_real_escape_string($conn, $action)
 		. "', "
 		. mysqli_real_escape_string($conn, $remote_ip)
 		. ")";
 	$result = $conn->query($sql);
 	$conn->close();
 	if ($result === TRUE) return TRUE;
-	else die("ERROR 0x0906: ".$sql);
+	else {
+		error_log("ERROR audit(".$url.", ".$action.", ".$remote_ip."): ".$sql);
+		die("ERROR 0x0906");
+	};
 }
 ?>
