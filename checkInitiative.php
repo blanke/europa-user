@@ -24,7 +24,7 @@ if ($checked) {
 		array_push($initiatives, $initiative);
 } else $initiatives = array_diff($initiatives, array($initiative));
 
-writeInitiatives($id, "[" . implode(",", $initiatives) . "]");
+writeSettingsField($id, "initiatives", "[" . implode(",", $initiatives) . "]");
 
 $settings = readSettings($id);
 $initiatives = getInitiatives($settings);
