@@ -2,6 +2,6 @@
 
 include './dbFunctions.php';
 
-writeSettingsField($_GET["id"], "name", $_GET["value"]);
+writeSettingsField($_GET["id"], "user_name", $_GET["value"]);
 
 ?>
