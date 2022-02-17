@@ -76,14 +76,11 @@ function audit($url, $action, $remote_ip) {
 	$conn = dbInit();
 	if ($action == null)
 		$action = "null";
-	else $action = "'".$action."'";
+	else $action = "'".mysqli_real_escape_string($conn, $action)."'";
 	$sql = "INSERT INTO audit (url, action, remote_ip) Values ('"
-		. mysqli_real_escape_string($conn, $url)
-		. "', "
-		. mysqli_real_escape_string($conn, $action)
-		. ", "
-		. mysqli_real_escape_string($conn, $remote_ip)
-		. ")";
+		.mysqli_real_escape_string($conn, $url)."', "
+		.$action.", "
+		.mysqli_real_escape_string($conn, $remote_ip).")";
 	$result = $conn->query($sql);
 	$conn->close();
 	if ($result === TRUE) return TRUE;
